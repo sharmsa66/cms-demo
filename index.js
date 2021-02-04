@@ -1,9 +1,12 @@
 const { Keystone } = require('@keystonejs/keystone');
 const { PasswordAuthStrategy } = require('@keystonejs/auth-password');
-const { Text, Checkbox, Password } = require('@keystonejs/fields');
+const { Text, Checkbox, Password, Relationship } = require('@keystonejs/fields');
 const { GraphQLApp } = require('@keystonejs/app-graphql');
 const { AdminUIApp } = require('@keystonejs/app-admin-ui');
 const initialiseData = require('./initial-data');
+
+const Language = require( './lists/language');
+const Translation  = require( './lists/translations');
 
 const { MongooseAdapter: Adapter } = require('@keystonejs/adapter-mongoose');
 const PROJECT_NAME = 'cms-mongo';
@@ -64,6 +67,11 @@ keystone.createList('User', {
   },
 });
 
+keystone.createList('Language', Language );
+
+
+keystone.createList('Translation', Translation);
+
 const authStrategy = keystone.createAuthStrategy({
   type: PasswordAuthStrategy,
   list: 'User',
@@ -81,3 +89,24 @@ module.exports = {
     }),
   ],
 };
+
+
+// "error_modal_title": "Something went wrong",
+// "error_modal_button_ok": "Try Again",
+// "error_modal_button_cancel": "Cancel",
+// "error_modal_body": "Our website is having trouble right now. Please try again.",
+// "error_message_required": "This is a required field.",
+// "error_message_province": "Please enter a valid state / province",
+// "error_message_postal": "Please enter a valid zip/postal code",
+// "error_message_phoneNumber": "Please enter a valid phone number",
+// "error_message_number": "Please enter a valid number",
+// "error_message_name": "Please enter a valid name",
+// "error_message_minlength": "Minimum length {{ minLength }}",
+// "error_message_max": "Invalid Value",
+// "error_message_invalidZipCode": "Invalid Zip/Postal Code",
+// "error_message_invalidPassword": "Invalid password. Password must be at least 6 characters long, and contain a number.",
+// "error_message_email": "Please enter a valid email address",
+// "error_message_city": "Please enter a valid city",
+// "error_message_amount": "Please enter a valid amount",
+// "error_message_address": "Please enter a valid address",
+// "error_message_913_button": "Continue Payment",
